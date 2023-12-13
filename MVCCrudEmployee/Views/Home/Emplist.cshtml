@@ -1,0 +1,95 @@
+﻿@model IEnumerable<MVCCrudEmployee.Models.EmployeeViewModel>
+
+@{
+    ViewBag.Title = "Emplist";
+}
+
+<h2>Emplist</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Empid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Empname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Empage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Empemail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Empcontact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Addressline1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Addressline2)
+        </th>
+        <th>@Html.DisplayNameFor(model=>model.Isactive)</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(model => item.Empid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Empname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Empage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Empemail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Empcontact)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Addressline1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Addressline2)
+        </td>
+        <td>
+            @if (item.Isactive == true)
+            {
+                <span style="color: green;">Active</span>
+            }
+            else
+            {
+                <span style="color: red;">Deactive</span>
+            }
+        </td>
+        <td>
+
+            @if (item.Isactive == true)
+            {
+                <a href="@Url.Action("DeactivateCustomer", new { id = item.Empid })" class="btn btn-danger">Deactivate</a>
+
+            }
+            else
+            {
+                <a href="javascript:void(0);" class="btn btn-default disabled" disabled">Edit</a>
+                <a href="javascript:void(0);" class="btn btn-default disabled" disabled>Dectivate</a>
+                <a href="@Url.Action("ActivateCustomer", new { id = item.Empid })" class="btn btn-success">Activate</a>
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Empid })|
+            @Html.ActionLink("Details", "Details", new { id = item.Empid }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Empid })
+        </td>
+    </tr>
+}
+
+</table>

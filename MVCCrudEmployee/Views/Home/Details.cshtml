@@ -1,0 +1,70 @@
+﻿@model MVCCrudEmployee.Models.EmployeeTable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EmployeeTable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Empname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Empage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Empemail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empemail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Empcontact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empcontact)
+        </dd>
+        
+        <dd>
+           
+                @foreach (var address in Model.AddressTables)
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => address.Addressline1)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => address.Addressline1)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => address.Addressline2)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => address.Addressline2)
+                    </dd>
+                }
+            
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Empid }) |
+    @Html.ActionLink("Back to List", "Emplist")
+</p>
