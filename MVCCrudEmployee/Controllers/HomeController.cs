@@ -49,12 +49,12 @@ namespace MVCCrudEmployee.Controllers
                 // Map ViewModel to Entity
                 var employee = new EmployeeTable
                 {
-                    
+                    Employeeid = GenerateEmpId(),
                     Empname = viewModel.Empname,
                     Empage = viewModel.Empage,
                     Empemail = viewModel.Empemail,
                     Empcontact = viewModel.Empcontact,
-                    //Isactive=viewModel.Isactive==true,
+                    Isactive=viewModel.Isactive==false,
                     AddressTables = new List<AddressTable>
                 {
                     new AddressTable
@@ -77,6 +77,43 @@ namespace MVCCrudEmployee.Controllers
             return View(viewModel);
         }
 
+        public string GenerateEmpId()
+        {
+
+            string prefix = "CE";
+            string year = DateTime.Now.Year.ToString();
+
+            using (var context = new DemoEntities())
+            {
+                var latestRecord = context.EmployeeTables
+                    .Where(c => c.Employeeid.StartsWith(prefix + "/" + year + "/"))
+                    .OrderByDescending(c => c.Employeeid)
+                    .FirstOrDefault();
+
+                int sequenceNumber = 1;
+
+                if (latestRecord != null)
+                {
+                    string[] parts = latestRecord.Employeeid.Split('/');
+                    if (parts.Length == 3)
+                    {
+                        if (int.TryParse(parts[2], out int latestSequenceNumber))
+                        {
+                            sequenceNumber = latestSequenceNumber + 1;
+                        }
+                    }
+                }
+
+
+                string formattedSequence = sequenceNumber.ToString("D3");
+
+
+                string newId = $"{prefix}/{year}/{formattedSequence}";
+
+                return newId;
+            }
+        }
+
         public ActionResult Emplist()
         {
             
@@ -87,7 +124,7 @@ namespace MVCCrudEmployee.Controllers
                 Empage=e.Empage,
                 Empemail=e.Empemail,
                 Empcontact=e.Empcontact,
-                Isactive = (bool)e.Isactive,
+                Isactive = e.Isactive,
                 Addressline1 =e.AddressTables.FirstOrDefault().Addressline1,
                 Addressline2=e.AddressTables.FirstOrDefault().Addressline2
                 
@@ -116,7 +153,7 @@ namespace MVCCrudEmployee.Controllers
                 Empage = employee.Empage,
                 Empemail = employee.Empemail,
                 Empcontact = employee.Empcontact,
-                Isactive= (bool)employee.Isactive,
+                //Isactive= (bool)employee.Isactive,
                 Addressline1 = employee.AddressTables.FirstOrDefault()?.Addressline1,
                 Addressline2 = employee.AddressTables.FirstOrDefault()?.Addressline2
             };
@@ -140,7 +177,7 @@ namespace MVCCrudEmployee.Controllers
                 employee.Empage = model.Empage;
                 employee.Empemail = model.Empemail;
                 employee.Empcontact = model.Empcontact;
-                employee.Isactive = (bool)model.Isactive;
+                //employee.Isactive = (bool)model.Isactive;
 
                 // Update address details
                 AddressTable address = employee.AddressTables.FirstOrDefault();
@@ -198,7 +235,7 @@ namespace MVCCrudEmployee.Controllers
 
             if (customer != null)
             {
-                customer.Isactive = true;
+                customer.Isactive = false;
                 db.SaveChanges();
                 return RedirectToAction("Emplist");
             }
@@ -214,7 +251,7 @@ namespace MVCCrudEmployee.Controllers
             if (customer != null)
             {
 
-                customer.Isactive = false;
+                customer.Isactive = true;
                 db.SaveChanges();
                 return RedirectToAction("Emplist");
             }

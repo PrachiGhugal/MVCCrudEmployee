@@ -13,6 +13,8 @@ namespace MVCCrudEmployee.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Empid { get; set; }
 
+        public int Employeeid { get; set; }
+
         [Required (ErrorMessage ="Name is required")]
         public string Empname { get; set; }
 
@@ -27,7 +29,7 @@ namespace MVCCrudEmployee.Models
         [Required(ErrorMessage = "Contact is required")]
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Please enter a valid 10-digit phone number.")]
         public long Empcontact { get; set; }
-        public bool Isactive { get; set; }
+        public bool? Isactive { get; set; }
 
         [Required(ErrorMessage = "Address line 1 is required")]
         public string Addressline1 { get; set; }

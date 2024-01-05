@@ -19,6 +19,7 @@
             <PropertyRef Name="Empid" />
           </Key>
           <Property Name="Empid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employeeid" Type="varchar" MaxLength="50" />
           <Property Name="Empname" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Empage" Type="int" Nullable="false" />
           <Property Name="Empemail" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -81,6 +82,7 @@
           <Property Name="Empcontact" Type="Int64" Nullable="false" />
           <NavigationProperty Name="AddressTables" Relationship="Self.FK_AddressTable_EmployeeTable" FromRole="EmployeeTable" ToRole="AddressTable" />
           <Property Name="Isactive" Type="Boolean" />
+          <Property Name="Employeeid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -132,6 +134,7 @@
           <EntitySetMapping Name="EmployeeTables">
             <EntityTypeMapping TypeName="DemoModel.EmployeeTable">
               <MappingFragment StoreEntitySet="EmployeeTable">
+                <ScalarProperty Name="Employeeid" ColumnName="Employeeid" />
                 <ScalarProperty Name="Isactive" ColumnName="Isactive" />
                 <ScalarProperty Name="Empid" ColumnName="Empid" />
                 <ScalarProperty Name="Empname" ColumnName="Empname" />

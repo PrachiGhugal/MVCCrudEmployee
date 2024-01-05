@@ -61,7 +61,7 @@
             @Html.DisplayFor(modelItem => item.Addressline2)
         </td>
         <td>
-            @if (item.Isactive == true)
+            @if (item.Isactive == false)
             {
                 <span style="color: green;">Active</span>
             }
@@ -72,15 +72,15 @@
         </td>
         <td>
 
-            @if (item.Isactive == true)
+            @if (item.Isactive == false)
             {
                 <a href="@Url.Action("DeactivateCustomer", new { id = item.Empid })" class="btn btn-danger">Deactivate</a>
 
             }
             else
             {
-                <a href="javascript:void(0);" class="btn btn-default disabled" disabled">Edit</a>
-                <a href="javascript:void(0);" class="btn btn-default disabled" disabled>Dectivate</a>
+                @*<a href="javascript:void(0);" class="btn btn-default disabled" disabled">Edit</a>
+                <a href="javascript:void(0);" class="btn btn-default disabled" disabled>Dectivate</a>*@
                 <a href="@Url.Action("ActivateCustomer", new { id = item.Empid })" class="btn btn-success">Activate</a>
             }
         </td>
