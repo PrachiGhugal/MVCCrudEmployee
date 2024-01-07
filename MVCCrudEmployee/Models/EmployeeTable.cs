@@ -27,6 +27,7 @@ namespace MVCCrudEmployee.Models
         public long Empcontact { get; set; }
         public Nullable<bool> Isactive { get; set; }
         public string Employeeid { get; set; }
+        public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AddressTable> AddressTables { get; set; }

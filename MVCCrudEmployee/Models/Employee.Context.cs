@@ -28,5 +28,7 @@ namespace MVCCrudEmployee.Models
         public virtual DbSet<AddressTable> AddressTables { get; set; }
         public virtual DbSet<EmployeeTable> EmployeeTables { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+
+        public System.Data.Entity.DbSet<MVCCrudEmployee.Models.EmployeeViewModel> EmployeeViewModels { get; set; }
     }
 }

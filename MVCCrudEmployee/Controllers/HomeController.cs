@@ -7,10 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-
+using System.Web.Security;
 
 namespace MVCCrudEmployee.Controllers
 {
+   
     public class HomeController : Controller
     {
         DemoEntities db=new DemoEntities();
@@ -33,6 +34,7 @@ namespace MVCCrudEmployee.Controllers
             return View();
         }
 
+        
         public ActionResult Create()
         {
             var employee=new EmployeeViewModel();
@@ -55,6 +57,7 @@ namespace MVCCrudEmployee.Controllers
                     Empemail = viewModel.Empemail,
                     Empcontact = viewModel.Empcontact,
                     Isactive=viewModel.Isactive==false,
+                    Password=viewModel.Password,
                     AddressTables = new List<AddressTable>
                 {
                     new AddressTable
@@ -114,6 +117,7 @@ namespace MVCCrudEmployee.Controllers
             }
         }
 
+        
         public ActionResult Emplist()
         {
             
@@ -256,6 +260,45 @@ namespace MVCCrudEmployee.Controllers
                 return RedirectToAction("Emplist");
             }
             return RedirectToAction("Emplist");
+        }
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(EmployeeViewModel employeeViewModel)
+        {
+            
+                var user=db.EmployeeTables.SingleOrDefault(u=>u.Empemail==employeeViewModel.Empemail && u.Password==employeeViewModel.Password);
+
+                if(user!=null)
+                {
+                FormsAuthentication.SetAuthCookie(user.Empemail, false);
+                    return RedirectToAction("Success");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid Login credentials");
+                }
+            
+            return View(employeeViewModel);
+        }
+
+        public ActionResult Success()
+        {
+            return View();
+        }
+
+        public ActionResult Logout()
+        {
+            // Clear the session variable indicating that the user is authenticated
+            FormsAuthentication.SignOut();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

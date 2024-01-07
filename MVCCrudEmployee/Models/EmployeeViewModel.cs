@@ -31,6 +31,9 @@ namespace MVCCrudEmployee.Models
         public long Empcontact { get; set; }
         public bool? Isactive { get; set; }
 
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
         [Required(ErrorMessage = "Address line 1 is required")]
         public string Addressline1 { get; set; }
 

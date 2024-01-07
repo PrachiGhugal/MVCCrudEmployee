@@ -25,6 +25,7 @@
           <Property Name="Empemail" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Empcontact" Type="bigint" Nullable="false" />
           <Property Name="Isactive" Type="bit" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -83,6 +84,7 @@
           <NavigationProperty Name="AddressTables" Relationship="Self.FK_AddressTable_EmployeeTable" FromRole="EmployeeTable" ToRole="AddressTable" />
           <Property Name="Isactive" Type="Boolean" />
           <Property Name="Employeeid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -134,6 +136,7 @@
           <EntitySetMapping Name="EmployeeTables">
             <EntityTypeMapping TypeName="DemoModel.EmployeeTable">
               <MappingFragment StoreEntitySet="EmployeeTable">
+                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Employeeid" ColumnName="Employeeid" />
                 <ScalarProperty Name="Isactive" ColumnName="Isactive" />
                 <ScalarProperty Name="Empid" ColumnName="Empid" />
